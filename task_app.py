@@ -7,8 +7,14 @@ screen = Tk()
 def clicking():
     user_result = f"Your task name is: {user_input.get()}"
     hidden_label.configure(text = user_result)
-
-
+def toggleCheckBox():
+    checkBoxText = Label(screen, text="CheckBox is activated", font=font)
+    if var.get() == 1:
+        checkBoxText.grid(column=1, row=20)
+    elif var.get() == 0:
+        checkBoxText.configure(text="CheckBox is deactivated")
+        checkBoxText.grid(column=1, row=25)
+        
 screen.title("Task app")
 text = "Enter task here please"
 font = Font(family="Arial", size=30)
@@ -40,7 +46,7 @@ view_bar.add_cascade(label='Leave application',menu=leaving_now)
 screen.config(menu=view_bar)
 
 # Creating Entry field
-user_input = Entry(screen, width=10, cursor="xterm")
+user_input = Entry(screen, width=10)
 user_input.grid(column=2,row=2)
 
 # Button Definitions
@@ -49,6 +55,10 @@ button1 = Button(screen, text="Click me please 🤓", fg="blue",command=clicking
 # Outputting labels onto screen
 button1.grid(column=3, row=2)
 
+# Checkbutton defintions
+var = IntVar()
+checkBox = Checkbutton(screen, text="hello there", variable=var ,onvalue=1, offvalue=0 ,command=toggleCheckBox)
+checkBox.grid(column=4, row=2)
 
 # Executing entire program
 screen.mainloop()
