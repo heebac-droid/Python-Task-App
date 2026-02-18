@@ -3,62 +3,26 @@ from tkinter.font import *
 
 screen = Tk()
 
-# Different function definitions for processes
-def clicking():
-    user_result = f"Your task name is: {user_input.get()}"
-    hidden_label.configure(text = user_result)
-def toggleCheckBox():
-    checkBoxText = Label(screen, text="CheckBox is activated", font=font)
-    if var.get() == 1:
-        checkBoxText.grid(column=1, row=20)
-    elif var.get() == 0:
-        checkBoxText.configure(text="CheckBox is deactivated")
-        checkBoxText.grid(column=1, row=25)
-        
-screen.title("Task app")
-text = "Enter task here please"
-font = Font(family="Arial", size=30)
-button_font = Font(family="Arial", size=20)
+screen.title("Task App")
 
-hello = "hello mate"
+# Font customisation
 
-# Label definitions
-text_label = Label(screen, text=text, font=font)
-text_label.grid(column=1, row=2)
-hidden_label = Label(screen, text="", font=font)
-hidden_label.grid(column=3, row=6)
-# Creating the menu 
+titleFont = Font(family="JetBrainsMono Nerd Font", size=30)
+normalTextFont = Font(family="JetBrainsMono Nerd Font", size=20)
 
-# Viewbar settings
-view_bar = Menu(screen)
+welcomeTextLabel = Label(screen, text="Welcome to the task app! 😁", font=titleFont, bg="#14e81b")
+welcomeTextLabel.place(x=150, y=375)
 
-# File sub-menu
-file_sys = Menu(view_bar)
-file_sys.add_command(label="List Tasks")
-view_bar.add_cascade(label='Tasks', menu=file_sys)
+# Details how to enter a task into the app
 
-# Leave application sub-menu
-leaving_now = Menu(view_bar)
-leaving_now.add_command(label='Are you sure? 🤔',command = screen.destroy)
-view_bar.add_cascade(label='Leave application',menu=leaving_now)
+taskName = Label(screen, text="Task name: ", font=normalTextFont)
+taskName.pack(side=LEFT)
 
-# Displaying the main menu bar
-screen.config(menu=view_bar)
+taskEntry = Entry(screen,font=normalTextFont)
+taskEntry.pack(side=LEFT)
 
-# Creating Entry field
-user_input = Entry(screen, width=10)
-user_input.grid(column=2,row=2)
-
-# Button Definitions
-button1 = Button(screen, text="Click me please 🤓", fg="blue",command=clicking, width=15, height=6, font=button_font)
-
-# Outputting labels onto screen
-button1.grid(column=3, row=2)
-
-# Checkbutton defintions
-var = IntVar()
-checkBox = Checkbutton(screen, text="hello there", variable=var ,onvalue=1, offvalue=0 ,command=toggleCheckBox)
-checkBox.grid(column=4, row=2)
+taskSubmit = Button(screen, text="Submit task", width=15, height=2, font=normalTextFont)
+taskSubmit.pack(side=LEFT, padx=20)
 
 # Executing entire program
 screen.mainloop()
