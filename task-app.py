@@ -1,28 +1,38 @@
 from tkinter import *
 from tkinter.font import *
 
+screen = Tk()
+
+screen.title("Task App")
+
+def fadeOutAnimation(label, alpha=1.0, step=0.1, delay=200):
+    if alpha > 0:
+        label.after(delay, fadeOutAnimation, label, alpha - step, step, delay)
+    else:
+        label.place_forget()  
+
 def taskConfirmation():
     taskLst.append(taskEntry.get())
     taskConfirmText = f"Task added: {taskEntry.get()}"
     taskConfirmLabel = Label(text=taskConfirmText, font=normalTextFont)
     taskConfirmLabel.place(x=75, y=500)
-
-def errorEraseCommand():
-    noAvaliableTasks.place_forget()
+    screen.after(2000, fadeOutAnimation, taskConfirmLabel)
 
 def listTasks():
     n = 600
     for t in taskLst:
         taskListText = f"Avaliable tasks: {t}"
-        listTasksLabel = Label(screen, text=taskListText, font=normalTextFont)
-        listTasksLabel.place(x=75, y=n)
+        checkBox = Checkbutton(screen, text=taskListText, variable=var, onvalue=1, offvalue=0, font=normalTextFont)
+        checkBox.place(x=70, y=n)
+
+        if var.get() == 1:
+            print("Task Completed:")
+
+
         n += 50
     if len(taskLst) == 0:
         noAvaliableTasks.place(x=75, y=150)
-
-screen = Tk()
-
-screen.title("Task App")
+        screen.after(2000, fadeOutAnimation, noAvaliableTasks)
 
 # Font customisation
 
@@ -42,9 +52,7 @@ menuBar = Menu(screen)
 TaskMenu = Menu(menuBar)
 ErrorMenu = Menu(menuBar)
 menuBar.add_cascade(label="Tasks", menu = TaskMenu)
-menuBar.add_cascade(label="Errors", menu = ErrorMenu)
 TaskMenu.add_command(label="List all avaliable tasks", command=listTasks)
-ErrorMenu.add_command(label="Remove no avaliable tasks error message", command=errorEraseCommand)
 screen.config(menu = menuBar)
 
 enterTaskFrame = Frame(screen, relief="raised", bd=7, height=175, width=100)
@@ -58,6 +66,12 @@ taskEntry.pack(side=LEFT)
 
 taskSubmit = Button(enterTaskFrame, text="Submit task", width=15, height=3, font=normalTextFont, command=taskConfirmation)
 taskSubmit.pack(side=LEFT, padx=20)
+
+
+
+# Checkboxes for completing tasks
+
+var = IntVar()
 
 # Executes the entire program
 screen.mainloop()
