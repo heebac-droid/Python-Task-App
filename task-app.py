@@ -22,12 +22,11 @@ def listTasks():
     n = 600
     for t in taskLst:
         taskListText = f"Avaliable tasks: {t}"
-        checkBox = Checkbutton(screen, text=taskListText, variable=var, onvalue=1, offvalue=0, font=normalTextFont)
+        checkBox = Checkbutton(screen, text=taskListText,font=normalTextFont)
         checkBox.place(x=70, y=n)
 
-        if var.get() == 1:
-            print("Task Completed:")
-
+#        if var.get() == 1:
+#            print("Task Completed:")
 
         n += 50
     if len(taskLst) == 0:
@@ -68,10 +67,8 @@ taskSubmit = Button(enterTaskFrame, text="Submit task", width=15, height=3, font
 taskSubmit.pack(side=LEFT, padx=20)
 
 
+#Checkbox list
 
-# Checkboxes for completing tasks
-
-var = IntVar()
 
 # Executes the entire program
 screen.mainloop()
